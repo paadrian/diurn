@@ -1,0 +1,23 @@
+﻿services:
+  diurn.api:
+    image: diurn
+    build:
+      context: .
+      dockerfile: Diurn.API/Dockerfile
+    ports:
+      - 5000:5000
+      - 5001:5001
+  diurn.db.postgres:
+    image: postgres:latest
+    container_name: diurn.database
+    environment:
+      - POSTGRES_DB=diurn
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/diurn-db:/var/lib/postgresql/data
+    build:
+      context: .
+      dockerfile: Diurn.DB/Dockerfile
+    ports:
+      - 5431:5432

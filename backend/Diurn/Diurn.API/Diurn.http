@@ -1,0 +1,6 @@
+@Diurn_HostAddress = http://localhost:5256
+
+GET {{Diurn_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
