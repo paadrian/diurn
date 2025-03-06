@@ -7,6 +7,6 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
 {
     public void Configure(EntityTypeBuilder<Activity> builder)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

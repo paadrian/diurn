@@ -10,12 +10,23 @@ public static class ActivityTypeMapper
         {
             Id = activityType.Id,
             Name = activityType.Name,
-            Category = activityType.Category.ToModel(),
+            CategoryId = activityType.Category.ToModel(),
         };
-}
+    
+    public static ActivityType ToModel(this ActivityTypeCreate activityType)
+        => new()
+        {
+            Name = activityType.Name,
+            CategoryId = activityType.Category.ToModel(),
+        };
 
-public static class ActivityCategoryMapper
-{
-    public static ActivityCategory ToModel(this ActivityCategoryResponse activityCategory)
-        => (ActivityCategory)activityCategory;
+    public static ActivityTypeResponse ToResponse(this ActivityType activityType)
+        => new(
+            Id: activityType.Id,
+            Name: activityType.Name,
+            Category: activityType.CategoryId.ToResponse()
+        );
+
+    public static IEnumerable<ActivityTypeResponse> ToResponse(this IEnumerable<ActivityType> activityTypes)
+        => activityTypes.Select(ToResponse);
 }

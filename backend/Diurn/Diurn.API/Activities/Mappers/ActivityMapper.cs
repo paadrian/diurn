@@ -8,7 +8,9 @@ public static class ActivityMapper
     public static ActivityResponse ToResponse(this Activity activity)
     {
         return new ActivityResponse(
-            activity.Id
+            Id: activity.Id,
+            Name: activity.Name,
+            Type: activity.Type.ToResponse()
         );
     }
 

@@ -1,0 +1,45 @@
+<div class="content">
+
+</div>
+<div class="navigation">
+    @if (activePage === 1)
+    {
+        <div>
+            First
+        </div>
+        <div>
+            Prev
+        </div>
+    }
+    @if (activePage > 1)
+    {
+        <a>
+            First
+        </a>
+        <a>
+            Prev
+        </a>
+    }
+    @for (page of pages; track $index)
+    {
+        <a [ngClass]="{'highlight': activePage == page}" (click)="changePage(page)">
+            {{page}}
+        </a>
+    }
+    @if (activePage < pageCount ){
+        <a>
+            Next
+        </a>
+        <a>
+            Last
+        </a>
+    }
+    @if (activePage === pageCount){
+        <div>
+            Next
+        </div>
+        <div>
+            Last
+        </div>
+    }
+</div>

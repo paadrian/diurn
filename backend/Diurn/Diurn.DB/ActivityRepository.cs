@@ -3,18 +3,19 @@ using Diurn.Core;
 
 namespace Diurn.DB;
 
-public class ApplicationRepository : IApplicationRepository
+public class ActivityRepository : IActivityRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public ApplicationRepository(ApplicationDbContext dbContext)
+    public ActivityRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<List<Activity>> GetAsync()
+    public async Task<List<Activity>> GetAsync(int pageNo, int pageSize)
     {
-        return await _dbContext.Activities.ToListAsync();
+        var skip = (pageNo - 1) * pageSize;
+        return await _dbContext.Activities.Skip(skip).Take(pageSize).ToListAsync();
     }
 
     public async Task<Activity?> GetAsync(Guid id)
@@ -29,7 +30,7 @@ public class ApplicationRepository : IApplicationRepository
         return newActivity.Entity;
     }
 
-    public async Task<Activity> UpdateAsync(Activity activity)
+    public async Task<Activity?> UpdateAsync(Activity activity)
     {
         _dbContext.Entry(activity).State = EntityState.Modified;
         await _dbContext.SaveChangesAsync();

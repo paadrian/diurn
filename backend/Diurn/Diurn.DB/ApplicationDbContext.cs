@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Diurn.Core;
+﻿using Diurn.Core;
 using Microsoft.Extensions.Configuration;
 
 namespace Diurn.DB;
@@ -9,7 +8,8 @@ public class ApplicationDbContext : DbContext
     private readonly IConfiguration _configuration;
 
     public DbSet<Activity> Activities { get; set; }
-    
+    public DbSet<ActivityType> ActivityTypes { get; set; }
+
     public ApplicationDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -23,7 +23,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

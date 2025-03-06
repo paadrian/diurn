@@ -2,7 +2,7 @@
 
 namespace Diurn.Core;
 
-public class Activity : Entity
+public class Activity : AuditEntity<Guid>
 {
     public required ActivityType Type { get; init; }
     public required string Name { get; init; }
@@ -10,13 +10,19 @@ public class Activity : Entity
     public DateTime EndDate { get; init; }
 }
 
-public class ActivityType : Entity
+public class ActivityType : Entity<Guid>
 {
     public required string Name { get; init; }
-    public ActivityCategory Category { get; init; }
+    public ActivityCategoryEnum CategoryId { get; init; }
+    public ActivityCategory Category { get; init; } = null!;
 }
 
-public enum ActivityCategory
+public class ActivityCategory : Entity<int>
+{
+    public string Name { get; set; } = string.Empty;
+}
+
+public enum ActivityCategoryEnum
 {
     None = 0,
     Physical,

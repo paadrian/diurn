@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Diurn.Activities.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ActivityController : ControllerBase
 {
     private readonly ActivityService _activityService;
@@ -17,9 +17,10 @@ public class ActivityController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ActivityResponse>>> Get()
+    public async Task<ActionResult<List<ActivityResponse>>> Get([FromQuery] MyFilter filter)
     {
-        return Ok((await _activityService.GetAsync()).ToResponse());
+        var result = (await _activityService.GetAsync(filter.PageNo, filter.PageSize)).ToResponse();
+        return Ok(result);
     }
 
     [HttpGet("{id:guid}")]
@@ -39,11 +40,17 @@ public class ActivityController : ControllerBase
         return CreatedAtAction(nameof(Get), activity.Id);
     }
     
-    [HttpPost]
-    public async Task<ActionResult> Update(ActivityCreate request)
+    [HttpPost("{id:guid}")]
+    public async Task<ActionResult> Update(Guid id, ActivityUpdate request)
     {
-        var activity = await _activityService.UpdateAsync(request.ToModel());
-        return CreatedAtAction(nameof(Get), activity.Id);
+        if (id != request.Id)
+            return BadRequest();
+        
+        var result = await _activityService.UpdateAsync(request.ToModel());
+        if (result is null)
+            return NotFound();
+        
+        return CreatedAtAction(nameof(Get), result.Id);
     }
 
     [HttpDelete("{id:guid}")]
