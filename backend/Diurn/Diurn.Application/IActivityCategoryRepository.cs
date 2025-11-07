@@ -1,9 +1,9 @@
 ﻿using Diurn.Core;
 
-namespace Diurn.Activities.Controllers;
+namespace Diurn.Application;
 
 public interface IActivityCategoryRepository
 {
-    Task<IEnumerable<ActivityCategoryEnum>> GetAsync();
+    Task<List<ActivityCategoryEnum>> GetAsync();
     Task<ActivityCategoryEnum> GetAsync(int id);
 }

@@ -21,8 +21,4 @@
       <ProjectReference Include="..\Diurn.Core\Diurn.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-    </ItemGroup>
-
 </Project>

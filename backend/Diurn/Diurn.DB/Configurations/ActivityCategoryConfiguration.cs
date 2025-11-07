@@ -7,9 +7,13 @@ public class ActivityCategoryConfiguration : IEntityTypeConfiguration<ActivityCa
 {
     public void Configure(EntityTypeBuilder<ActivityCategory> builder)
     {
+        builder.HasMany(category => category.ActivityTypes)
+            .WithOne(activityType => activityType.Category)
+            .HasForeignKey(activityType => activityType.CategoryId);
+        
         var data = Enum.GetValues<ActivityCategoryEnum>().Select(value => new ActivityCategory
         {
-            Id = (int)value + 1,
+            Id = value,
             Name = value.ToString(),
         }).ToArray();
         builder.HasData(data);

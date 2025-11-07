@@ -423,4 +423,4 @@ FodyWeavers.xsd
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-.containers
+**/.containers

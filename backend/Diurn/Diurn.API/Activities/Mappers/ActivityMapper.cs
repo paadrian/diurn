@@ -1,5 +1,6 @@
 ﻿using Diurn.Contracts;
 using Diurn.Core;
+using Kernel;
 
 namespace Diurn.Activities.Mappers;
 
@@ -22,7 +23,7 @@ public static class ActivityMapper
     public static Activity ToModel(this ActivityCreate activity)
         => new()
         {
-            Type = activity.Type.ToModel(),
+            TypeId = activity.ActivityTypeId.ToGuid(),
             Name = activity.Name,
         };
     

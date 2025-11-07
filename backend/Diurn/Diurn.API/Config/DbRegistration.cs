@@ -6,9 +6,10 @@ namespace Diurn.Config;
 
 public static class DbRegistration
 {
-    public static void AddDb(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ISaveChangesInterceptor, AuditableInterceptor>();
         services.AddDbContext<ApplicationDbContext>();
+        return services;
     }
 }

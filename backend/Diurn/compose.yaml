@@ -3,20 +3,20 @@
     image: postgres:latest
     restart: always
     container_name: diurn.database
-    environment:
-      - POSTGRES_DB=diurn
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env
     volumes:
       - ./.containers/diurn-db:/var/lib/postgresql/data
     build:
       context: .
       dockerfile: Diurn.DB/Dockerfile
     ports:
-      - "5431:5432"
+      - "5433:5432"
 
   diurn.api:
     container_name: diurn
+    env_file:
+      - .env
     depends_on:
       - diurn.db.postgres
     build:
@@ -25,12 +25,5 @@
     ports:
       - "5000:80"
       - "5001:443"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80;https://+:443
-      - ASPNETCORE_HTTPS_PORT=443
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ConnectionStrings__DefaultConnection=Host=diurn.db.postgres;Port=5432;Database=diurn;Username=postgres;Password=postgres
     volumes:
       - ~/.aspnet/https:/https:ro
