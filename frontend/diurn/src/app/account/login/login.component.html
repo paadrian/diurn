@@ -1,0 +1,28 @@
+<div class="container">
+    <header>
+        <h1>Welcome!</h1>
+        <div class="arrow-conatiner"></div>
+    </header>
+
+    <main>
+        <div class="login-container">
+
+            @if (this.userService.currentUser$ | async; as userprofile) {
+                @if (userprofile && userprofile.id)
+                {
+                    <div class="text-and-button">
+                        <div style="margin-bottom: 20px">Hello Mr/Ms: {{ userprofile.lastName }}</div>
+                        <button class="logout-button" style="margin-bottom: 20px" (click)="logout()">Logout</button>
+                    </div>
+                }
+                @else
+                {
+                    <button class="login-button" (click)="loginEntraId()">Login with Azure AD</button>
+                }
+            }
+            @else {
+                <p>Authentication service is not available.</p>
+            }
+        </div>
+    </main>
+</div>

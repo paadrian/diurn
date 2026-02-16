@@ -2,8 +2,14 @@
 
 </div>
 <div class="navigation">
-    @if (activePage === 1)
-    {
+    @if (hasPrevious) {
+        <a (click)="changePage($event,1)" routerLinkActive="active">
+            First
+        </a>
+        <a (click)="changePage($event, activePage - 1)">
+            Prev
+        </a>
+    } @else {
         <div>
             First
         </div>
@@ -11,30 +17,52 @@
             Prev
         </div>
     }
-    @if (activePage > 1)
-    {
-        <a>
-            First
+    @if (hasLeftEllipsis) {
+        <a [ngClass]="{'highlight': activePage === +1}" (click)="changePage($event,1)">
+            1
         </a>
-        <a>
-            Prev
-        </a>
-    }
-    @for (page of pages; track $index)
-    {
-        <a [ngClass]="{'highlight': activePage == page}" (click)="changePage(page)">
-            {{page}}
+        <div>
+            ...
+        </div>
+    } @else if(activePage === Number(+4)) {
+        <a [ngClass]="{'highlight': activePage === Number(+1)}" (click)="changePage($event,1)">
+            1
         </a>
     }
-    @if (activePage < pageCount ){
-        <a>
+    @for (page of pages; track page) {
+        @if (activePage === page)
+        {
+            <div class="highlight">
+                {{page}}
+            </div>
+        } @else
+        {
+            <a [ngClass]="{'highlight': activePage === page}" (click)="changePage($event, page)">
+                {{page}}
+            </a>
+        }
+    }
+    @if (hasRightEllipsis)
+    {
+        <div>
+            ...
+        </div>
+        <a [ngClass]="{'highlight': activePage === pageCount}" (click)="changePage($event, pageCount)">
+            {{pageCount}}
+        </a>
+    } @else if (activePage === pageCount - 3) {
+        <a [ngClass]="{'highlight': activePage === pageCount}" (click)="changePage($event, pageCount)">
+            {{pageCount}}
+        </a>
+    }
+    @if (hasNext){
+        <a (click)="changePage($event, activePage + 1)">
             Next
         </a>
-        <a>
+        <a (click)="changePage($event, pageCount)">
             Last
         </a>
-    }
-    @if (activePage === pageCount){
+    } @else {
         <div>
             Next
         </div>
@@ -42,4 +70,48 @@
             Last
         </div>
     }
+    <div class="pageSize"></div>
 </div>
+
+<!--<div class="navigation">-->
+<!--    @if (activePage === 1)-->
+<!--    {-->
+<!--        <div>-->
+<!--            First-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            Prev-->
+<!--        </div>-->
+<!--    }-->
+<!--    @if (activePage > 1)-->
+<!--    {-->
+<!--        <a [href]="headOfList">-->
+<!--            First-->
+<!--        </a>-->
+<!--        <a [href]="headOfList">-->
+<!--            Prev-->
+<!--        </a>-->
+<!--    }-->
+<!--    @for (page of pages; track $index)-->
+<!--    {-->
+<!--        <a [ngClass]="{'highlight': activePage == page}" (click)="changePage(page)">-->
+<!--            {{page}}-->
+<!--        </a>-->
+<!--    }-->
+<!--    @if (activePage < pageCount ){-->
+<!--        <a [href]="headOfList">-->
+<!--            Next-->
+<!--        </a>-->
+<!--        <a [href]="headOfList">-->
+<!--            Last-->
+<!--        </a>-->
+<!--    }-->
+<!--    @if (activePage === pageCount){-->
+<!--        <div>-->
+<!--            Next-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            Last-->
+<!--        </div>-->
+<!--    }-->
+<!--</div>-->

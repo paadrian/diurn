@@ -1,0 +1,41 @@
+<div class="dashboard">
+    <h2>Dashboard</h2>
+    <div class="section">
+        <h3>API Connection Test</h3>
+        <button class="btn" (click)="refreshActivities()">Test API Connection</button>
+        @if (activities)
+        {
+            <div class="result success">
+                <strong>Success:</strong> {{ activities.length }} activities retrieved.
+                @for (activity of activities; track activity.id)
+                {
+                    <div class="activity-item">
+                        <p><strong>Activity ID:</strong> {{ activity.id }}</p>
+                        <p><strong>Activity Type:</strong> {{ activity.type }}</p>
+                        <p><strong>Type:</strong> {{ activity.type?.name }}</p>
+                    </div>
+                }
+            </div>
+        }
+        @if (userprofile)
+        {
+            <div class="profile-card">
+                <p><strong>Name:</strong> {{userprofile.username}}</p>
+                <p><strong>Email:</strong> {{userprofile.email}}</p>
+                <p><strong>User Id:</strong> {{userprofile.id}}</p>
+                @if (userprofile.Roles && userprofile.Roles.length > 0)
+                {
+                    <p><strong>Roles:</strong> {{userprofile.Roles.join(", ")}}</p>
+                }
+            </div>
+        }
+    </div>
+</div>
+<p>activity-list works!</p>
+<app-pagination [activePage]="activePage"
+                [itemCount]="100"
+                [pageSize]="1"
+                [address]="'abc'"
+                (changePageEvent)="changePage($event)">
+
+</app-pagination>

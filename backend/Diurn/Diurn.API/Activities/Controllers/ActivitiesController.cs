@@ -4,7 +4,6 @@ using Diurn.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
 
 namespace Diurn.Activities.Controllers;
 
@@ -14,6 +13,7 @@ namespace Diurn.Activities.Controllers;
 // [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
 public class ActivitiesController : ControllerBase
 {
+    private readonly string _unknown = "Unknown";
     private readonly ActivityService _activityService;
     private readonly ILogger<ActivitiesController> _logger;
 
@@ -26,8 +26,8 @@ public class ActivitiesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<ActivityResponse>>> Get([FromQuery] MyFilter filter)
     {
-        var userName = User.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? "Unknown";
-        var userId = User.Claims.FirstOrDefault(c => c.Type == "oid")?.Value ?? "Unknown";
+        var userName = User.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? _unknown;
+        var userId = User.Claims.FirstOrDefault(c => c.Type == "oid")?.Value ?? _unknown;
         
         _logger.LogInformation("User {UserName} ({UserId}) is getting activities", userName, userId);
         var result = (await _activityService.GetAsync(filter.PageNo, filter.PageSize)).ToResponse();
