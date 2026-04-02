@@ -1,3 +1,10 @@
-a.highlight {
+div.highlight {
     background-color: red;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
 }

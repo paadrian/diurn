@@ -8,11 +8,11 @@ namespace Diurn.Activities.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ActivityTypeController : ControllerBase
+public class ActivityTypesController : ControllerBase
 {
     private readonly ActivityTypeService _activityService;
 
-    public ActivityTypeController(ActivityTypeService activityService)
+    public ActivityTypesController(ActivityTypeService activityService)
     {
         _activityService = activityService;
     }

@@ -8,6 +8,7 @@ public class ApplicationDbContext : DbContext
     private readonly IConfiguration _configuration;
 
     public DbSet<Activity> Activities { get; set; }
+    public DbSet<ActivityCategory> ActivityCategories { get; set; }
     public DbSet<ActivityType> ActivityTypes { get; set; }
 
     public ApplicationDbContext(IConfiguration configuration)

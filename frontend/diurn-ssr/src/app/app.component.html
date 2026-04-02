@@ -1,0 +1,21 @@
+<header>
+  <nav>
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
+<footer>
+  <p>© 2025 All rights reserved.</p>
+</footer>
+
+<app-pagination [activePage]="11"
+                [itemCount]="100"
+                [pageSize]="1"
+                [address]="'abc'">
+
+</app-pagination>
+

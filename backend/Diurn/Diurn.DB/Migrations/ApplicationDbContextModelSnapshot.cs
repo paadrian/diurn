@@ -65,10 +65,7 @@ namespace Diurn.DB.Migrations
             modelBuilder.Entity("Diurn.Core.ActivityCategory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -76,7 +73,7 @@ namespace Diurn.DB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ActivityCategory");
+                    b.ToTable("ActivityCategories");
 
                     b.HasData(
                         new
@@ -110,16 +107,13 @@ namespace Diurn.DB.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CategoryId1")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("ActivityTypes");
                 });
@@ -138,12 +132,17 @@ namespace Diurn.DB.Migrations
             modelBuilder.Entity("Diurn.Core.ActivityType", b =>
                 {
                     b.HasOne("Diurn.Core.ActivityCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1")
+                        .WithMany("ActivityTypes")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Diurn.Core.ActivityCategory", b =>
+                {
+                    b.Navigation("ActivityTypes");
                 });
 #pragma warning restore 612, 618
         }

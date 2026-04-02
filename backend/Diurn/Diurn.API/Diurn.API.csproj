@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -6,22 +6,27 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>Diurn</RootNamespace>
-    </PropertyGroup>
+      <UserSecretsId>fc811f53-e2af-4bca-950e-242f2efcfb71</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+        <PackageReference Include="Microsoft.Identity.Web" Version="4.0.1" />
+        <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="4.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Diurn.Application\Diurn.Application.csproj"/>
-        <ProjectReference Include="..\Diurn.Contracts\Diurn.Contracts.csproj"/>
-        <ProjectReference Include="..\Diurn.Core\Diurn.Core.csproj"/>
-        <ProjectReference Include="..\Diurn.DB\Diurn.DB.csproj"/>
+        <ProjectReference Include="..\Diurn.Application\Diurn.Application.csproj" />
+        <ProjectReference Include="..\Diurn.Contracts\Diurn.Contracts.csproj" />
+        <ProjectReference Include="..\Diurn.Core\Diurn.Core.csproj" />
+        <ProjectReference Include="..\Diurn.DB\Diurn.DB.csproj" />
+        <ProjectReference Include="..\Kernel\Kernel.csproj" />
     </ItemGroup>
 
 </Project>

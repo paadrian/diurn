@@ -2,7 +2,7 @@
 
 namespace Diurn.Application;
 
-public class ActivityTypeService : IActivityTypeRepository
+public class ActivityTypeService
 {
     private readonly IActivityTypeRepository _activityRepository;
 

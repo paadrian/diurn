@@ -1,0 +1,108 @@
+<div class="content">
+
+</div>
+<div class="navigation">
+    @if (hasPrevious) {
+        <a>
+            First
+        </a>
+        <a>
+            Prev
+        </a>
+    } @else {
+        <div>
+            First
+        </div>
+        <div>
+            Prev
+        </div>
+    }
+    @if (hasLeftEllipsis) {
+        <a [ngClass]="{'highlight': activePage === +1}" (click)="changePage(1)">
+            1
+        </a>
+        <div>
+            ...
+        </div>
+    } @else if(activePage === Number(+4)) {
+        <a [ngClass]="{'highlight': activePage === Number(+1)}" (click)="changePage(1)">
+            1
+        </a>
+    }
+    @for (page of pages; track page) {
+        <a [ngClass]="{'highlight': activePage === page}" (click)="changePage(page)">
+            {{page}}
+        </a>
+    }
+    @if (hasRightEllipsis)
+    {
+        <div>
+            ...
+        </div>
+        <a>
+            {{pageCount}}
+        </a>
+    } @else if (activePage === pageCount - 3) {
+        <a>
+            {{pageCount}}
+        </a>
+    }
+    @if (hasNext){
+        <a>
+            Next
+        </a>
+        <a>
+            Last
+        </a>
+    } @else {
+        <div>
+            Next
+        </div>
+        <div>
+            Last
+        </div>
+    }
+</div>
+
+<!--<div class="navigation">-->
+<!--    @if (activePage === 1)-->
+<!--    {-->
+<!--        <div>-->
+<!--            First-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            Prev-->
+<!--        </div>-->
+<!--    }-->
+<!--    @if (activePage > 1)-->
+<!--    {-->
+<!--        <a>-->
+<!--            First-->
+<!--        </a>-->
+<!--        <a>-->
+<!--            Prev-->
+<!--        </a>-->
+<!--    }-->
+<!--    @for (page of pages; track $index)-->
+<!--    {-->
+<!--        <a [ngClass]="{'highlight': activePage == page}" (click)="changePage(page)">-->
+<!--            {{page}}-->
+<!--        </a>-->
+<!--    }-->
+<!--    @if (activePage < pageCount ){-->
+<!--        <a>-->
+<!--            Next-->
+<!--        </a>-->
+<!--        <a>-->
+<!--            Last-->
+<!--        </a>-->
+<!--    }-->
+<!--    @if (activePage === pageCount){-->
+<!--        <div>-->
+<!--            Next-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            Last-->
+<!--        </div>-->
+<!--    }-->
+<!--</div>-->

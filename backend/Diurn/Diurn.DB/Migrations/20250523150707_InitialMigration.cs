@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -9,22 +8,21 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Diurn.DB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ActivityCategory",
+                name: "ActivityCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityCategory", x => x.Id);
+                    table.PrimaryKey("PK_ActivityCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,16 +31,15 @@ namespace Diurn.DB.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    CategoryId1 = table.Column<int>(type: "integer", nullable: false)
+                    CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActivityTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ActivityTypes_ActivityCategory_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "ActivityCategory",
+                        name: "FK_ActivityTypes_ActivityCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "ActivityCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -73,7 +70,7 @@ namespace Diurn.DB.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ActivityCategory",
+                table: "ActivityCategories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -89,9 +86,9 @@ namespace Diurn.DB.Migrations
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityTypes_CategoryId1",
+                name: "IX_ActivityTypes_CategoryId",
                 table: "ActivityTypes",
-                column: "CategoryId1");
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
@@ -104,7 +101,7 @@ namespace Diurn.DB.Migrations
                 name: "ActivityTypes");
 
             migrationBuilder.DropTable(
-                name: "ActivityCategory");
+                name: "ActivityCategories");
         }
     }
 }
